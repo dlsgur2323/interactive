@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            margin: 0px;
+            -ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;
+            background: black;
+        }
+        section{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1600px;
+            transform: scale(0.5);
+        }
+        article{
+            margin: 0px 200px;
+            position: relative;
+            width: 500px;
+            height: 500px;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+        }
+        article div{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.5);
+            border:3px solid rgba(0,0,0,0.2);
+            opacity: 0.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* backface-visibility: hidden; */
+            perspective: 1600px;
+        }
+        article div:nth-of-type(1){
+            transform: rotateY(0deg) translateZ(250px);
+        }
+        article div:nth-of-type(2){
+            transform: rotateY(90deg) translateZ(250px);
+        }
+        article div:nth-of-type(3){
+            transform: rotateY(180deg) translateZ(250px);
+        }
+        article div:nth-of-type(4){
+            transform: rotateY(270deg) translateZ(250px);
+        }
+        article div:nth-of-type(5){
+            transform: rotateX(90deg) translateZ(250px);
+        }
+        article div:nth-of-type(6){
+            transform: rotateX(270deg) translateZ(250px);
+        }
+
+        article div p{
+            position: absolute;
+            transform: translateZ(-100px);
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <article>
+            <div id="1"><p>1</p></div>
+            <div id="2"><p>2</p></div>
+            <div id="3"><p>3</p></div>
+            <div id="4"><p>4</p></div>
+            <div id="5"><p>5</p></div>
+            <div id="6"><p>6</p></div>
+        </article>
+        <article>
+            <div id="1"><p>1</p></div>
+            <div id="2"><p>2</p></div>
+            <div id="3"><p>3</p></div>
+            <div id="4"><p>4</p></div>
+            <div id="5"><p>5</p></div>
+            <div id="6"><p>6</p></div>
+        </article>
+    </section>
+    <script>
+        let ox = 0;
+        let oy = 0;
+        let rotateX = 0;
+        let rotateY = 0;
+        let rotateZ = 0;
+        let clicked = 0;
+        let target;
+        let mousedown = false;
+        const divs = document.querySelectorAll('article div');
+        
+        for(let div of divs){
+            div.addEventListener("mousedown", e=>{
+                target = e.target.parentElement;
+                target.style.transition = "";
+                let trans = target.style.transform;
+                trans = trans.replace('rotate',"").replace('rotate',"").replace('rotate',"").replace('X',"").replace('Y',"").replace('Z',"").replace(') (',":").replace(') (',":").replace('(',"").replace(')',"");
+                trans = trans.split(":");
+                if(trans.length < 3){
+                    rotateX = 0;
+                    rotateY = 0;
+                    rotateZ = 0;
+                } else {
+                    rotateX = parseInt(trans[0].replace("deg",""));
+                    rotateY = parseInt(trans[1].replace("deg",""));
+                    rotateZ = parseInt(trans[2].replace("deg",""));
+                }
+
+                clicked = e.target.id;
+                ox = e.clientX;
+                oy = e.clientY;
+                document.addEventListener("mousemove",onMouseMove);
+            });
+        }
+
+        document.addEventListener("mouseup", e=>{
+            document.removeEventListener("mousemove",onMouseMove);
+            target = null;
+        });
+
+        function onMouseMove(e){
+            let mx = e.clientX;
+            let my = e.clientY;
+            rotateX -= (ox - mx)/10;
+            
+            if(clicked == 4){
+                rotateZ += (oy - my)/10;
+            } else if(clicked ==2 ){
+                rotateZ -= (oy - my)/10;
+            } else if(clicked ==3 ){
+                rotateY -= (oy - my)/10;
+            } else {
+                rotateY += (oy - my)/10;
+            }
+            ox = mx;
+            oy = my;
+            target.style.transform = `rotateY(${rotateX}deg) rotateX(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+        }
+        
+        setInterval(()=>{
+            const articles = document.querySelectorAll('article');
+            for(let article of articles){
+                if(article != target){
+                    const rotateX = Math.random() * 360
+                    const rotateY = Math.random() * 360
+                    const rotateZ = Math.random() * 360
+                    
+                    article.style.transition = "all 1s";
+                    article.style.transform = `rotateY(${rotateX}deg) rotateX(${rotateY}deg) rotateZ(${rotateZ}deg)`;
+                }
+            }
+        },2000);
+    </script>
+</body>
+</html>

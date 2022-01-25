@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin :0px;
+            padding:0px;
+        }
+        section {
+            width: 100%;
+            background: lightcyan;
+            display: flex;
+        }
+
+        section article{
+            width: 400px;
+            background: aqua;
+            border: 1px solid #000;
+            font-size: 50px;
+            color : #fff;
+            display: flex;
+            box-sizing: border-box;
+        }
+        section article:nth-of-type(1){
+            flex: 1;
+        }
+        section article:nth-of-type(2){
+            flex: 2;
+        }
+        section article:nth-of-type(3){
+            flex: 3;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <article>FELX GROW</article>
+        <article>FELX GROW</article>
+        <article>FELX GROW</article>
+    </section>
+</body>
+</html>

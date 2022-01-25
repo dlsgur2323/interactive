@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        body{
+            perspective: 1600px;
+            transform-style: preserve-3d;
+        }
+        section{
+            position: absolute;
+            width: 100%;
+            background-color : rgba(0,0,0,0.2);
+            border-left: 10px solid #fff;
+            border-right: 10px solid #fff;
+            bottom: 0;
+            height: 500%;
+            transform: rotateX(90deg);
+            transform-origin: bottom;
+            transform-style: preserve-3d;
+        }
+        article{
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            /* background: aqua; */
+            transform-style: preserve-3d;
+        }
+        article.cube div{
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: pink;
+            opacity: 1;
+            border: 5px solid white;
+        }
+
+        article.cube div:nth-of-type(1){
+            transform-origin: bottom;
+            transform: rotateX(-90deg);
+        }
+        article.cube div:nth-of-type(2){
+            transform-origin: top;
+            transform: rotateX(90deg);
+        }
+        article.cube div:nth-of-type(3){
+            transform-origin: right;
+            transform: rotateY(90deg);
+        }
+        article.cube div:nth-of-type(4){
+            transform-origin: left;
+            transform: rotateY(-90deg);
+        }
+        article.cube div:nth-of-type(5){
+            transform: translateZ(300px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <article class="cube" style="top: 3000px;left: 0;">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+        <article class="cube" style="top: 3000px;left: 0;transform: translateZ(300px);">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+        <article class="cube" style="top: 3000px;left: 0;transform: translateZ(300px) translateX(300px);">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+        <article class="cube" style="top: 2000px;left: 500px;">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+        <article class="cube" style="top: 3700px;left: 1000px;">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+        <article class="cube" style="top: 2500px; right : 0;">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </article>
+    </section>
+
+    <script>
+        const section = document.querySelector('section');
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        let vx = 0;
+        let space = false;
+        let ra = false;
+        let la = false;
+        let w = false;
+        let a = false;
+        let s = false;
+        let d = false;
+        window.addEventListener('keydown',(e)=>{
+            console.log(e);
+            if(e.key == 'w'){
+                w = true;
+            } else if(e.key == 'a'){
+                a = true;
+            } else if(e.key == 's'){
+                s = true;
+            } else if(e.key == 'd'){
+                d = true;
+            } else if(e.keyCode == '39') {  // 오른쪽
+                ra = true;
+            } else if(e.keyCode =='37'){
+                la = true;
+            }
+
+            if(e.code == 'Space'){
+                space = true;
+            }
+            
+        });
+        window.addEventListener('keyup',(e)=>{
+            if(e.key == 'w'){
+                w = false;
+            } else if(e.key == 'a'){
+                a = false;
+            } else if(e.key == 's'){
+                s = false;
+            } else if(e.key == 'd'){
+                d = false;
+            } else if(e.keyCode == '39') {  // 오른쪽
+                ra = false;
+            } else if(e.keyCode =='37'){
+                la = false;
+            }
+        });
+
+        setInterval(()=>{
+            if(w == true){
+                y += 10;
+            }
+            if(a == true){
+                x += 10;
+            }
+            if(s == true){
+                y -= 10;
+            }
+            if(d == true){
+                x -= 10;
+            }
+            
+            if(ra == true){
+                vx -=1;
+            }
+            if(la == true){
+                vx +=1;
+            }
+
+            if(z <= -500){
+                space = false;
+            }
+            if(space == true && z > -500){
+                z -= 10;
+            }
+            if(space == false && z < 0){
+                z += 10;
+            }
+            section.style.transform = `rotateX(90deg) translateX(${x}px) translateY(${y}px) translateZ(${z}px) rotateZ(${vx}deg)`;
+        },10);
+    </script>
+</body>
+</html>

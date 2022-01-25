@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes moving {
+            0% {
+                left : -400px;
+            }
+            10% {
+                left : 1920px;
+            }
+            20%{
+                top: -400px;
+                left : 1320px;
+            }
+            30%{
+                left : 1320px;
+                top : 1100px;
+            }
+            40%{
+                left : 2420px;
+                top : 500px;
+            }
+            50%{
+                left : -900px;
+                top : 500px;
+            }
+            60%{
+                left : 300px;
+                top : 1100px;
+            }
+            70%{
+                left : 300px;
+                top: -400px;
+            }
+            80%{
+                left : -400px;
+                top: -400px;
+            }
+            90%{
+                left : 1920px;
+                top : 1100px;
+            }
+            100%{
+                left : -400px;
+                top : 0px;
+            }
+        }
+        @keyframes moving2 {
+            0% {
+                transform: translate(1920px, 0px);
+            }
+            50%{
+                transform: translate(1200px, 600px);
+            }
+            100%{
+                transform: translate(-400px, 0px);
+            }
+        }
+        @keyframes moving3 {
+            0% {
+                transform: translate(0px, 600px);
+            }
+            50%{
+                transform: translate(400px, -240px);
+            }
+            100%{
+                transform: translate(1920px, 200px);
+            }
+        }
+        @keyframes moving4 {
+            0% {
+                transform: translate(600px, -400px);
+            }
+            50%{
+                transform: translate(600px, 900px);
+            }
+            100%{
+                transform: translate(600px, -400px);
+            }
+        }
+        @keyframes moving5 {
+            0% {
+                transform: translate(-400px, 100px);
+            }
+            50%{
+                transform: translate(1920px, 100px);
+            }
+            100%{
+                transform: translate(-400px, 100px);
+            }
+        }
+
+        ::selection{
+            background: none;
+        }
+        html {
+            overflow: hidden;
+        }
+        article{
+            width: 500px; height: 400px; margin: 100px auto;
+            border-radius: 100%;
+            position: absolute;
+            cursor: pointer;
+        }
+        .a{
+            animation-name: moving;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+        }
+        .b{
+            animation-name: moving2;
+            animation-duration: 2s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+        }
+        .c{
+            animation-name: moving3;
+            animation-duration: 1.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+        }
+        .d{
+            animation-name: moving4;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+        }
+        .e{
+            animation-name: moving5;
+            animation-duration: 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 1.2s;
+        }
+        p{
+            text-align: center;
+            line-height: 400px;
+            font-size: 10rem;
+            margin : 0;
+            color: black;
+            animation-name: color2;
+            animation-duration: 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 1.2s;
+        }
+        body{
+            animation-name: color;
+            animation-duration: 4s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 1.2s;
+        }
+        @keyframes color {
+            0% {
+                background: white;
+            }
+            50%{
+                background: black;
+            }
+            100%{
+                background: white;
+            }
+        }
+        @keyframes color2 {
+            0% {
+                color: black;
+            }
+            50%{
+                color: white;
+            }
+            100%{
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="a" style="left : -400px;">
+        <p>리뷰</p>
+    </article>
+    <article class="b">
+        <p>WBS</p>
+    </article>
+    <article class="c">
+        <p>2파트</p>
+    </article>
+    <article class="d">
+        <p>팀장님</p>
+    </article>
+    <article class="e">
+        <p>개발팀</p>
+    </article>
+
+</body>
+</html>

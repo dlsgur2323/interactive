@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body{
+            width: 100%;
+            height: 100vh;
+            margin: 0%;
+            overflow: hidden;
+        }
+        body{
+            perspective: 1600px;
+        }
+        div.pointer{
+            position: fixed;
+            width: 1px;
+            height: 1px;
+            top: 50%;
+            left: 50%;
+            border: 5px solid pink;
+            z-index: 999;
+        }
+
+        div.observer{
+            transform : rotateX(80deg);
+            position: fixed;
+            /* width: 100px;
+            height: 100px; */
+            left : 50%;
+            top : 50%;
+            display: flex;
+            transform-style: preserve-3d;
+            justify-content: center;
+            align-items: center ;
+        }
+        div.ground{
+            transform-origin: 960px 2500px;
+            width: 1920px;
+            height: 5000px;
+            background: grey;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+        article{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            /* background: aqua; */
+            transform-style: preserve-3d;
+        }
+        article.cube div{
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: pink;
+            opacity: 1;
+            border: 5px solid white;
+        }
+        article.cube div:nth-of-type(1){
+            transform-origin: bottom;
+            transform: rotateX(-90deg);
+        }
+        article.cube div:nth-of-type(2){
+            transform-origin: top;
+            transform: rotateX(90deg);
+        }
+        article.cube div:nth-of-type(3){
+            transform-origin: right;
+            transform: rotateY(90deg);
+        }
+        article.cube div:nth-of-type(4){
+            transform-origin: left;
+            transform: rotateY(-90deg);
+        }
+        article.cube div:nth-of-type(5){
+            transform: translateZ(100px);
+        }
+        </style>
+</head>
+<body>
+    <div class="pointer"></div>
+    <div class="observer">
+        <div class="ground">
+            <article class="cube" style="top: 3000px;left: 0;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+            <article class="cube" style="top: 3000px;left: 0;transform: translateZ(100px);">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+            <article class="cube" style="top: 3000px;left: 0;transform: translateZ(100px) translateX(100px);">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+            <article class="cube" style="top: 2000px;left: 500px;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+            <article class="cube" style="top: 3700px;left: 1000px;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+            <article class="cube" style="top: 2500px; right : 0;">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        const observer = document.querySelector('.observer');
+        const ground = document.querySelector('.ground');
+
+        let x = 0;
+        let y = 0;
+        let z = 0;
+        let vx = 0;
+        let space = false;
+        let ra = false;
+        let la = false;
+        let w = false;
+        let a = false;
+        let s = false;
+        let d = false;
+        window.addEventListener('keydown',(e)=>{
+            console.log(e);
+            if(e.key == 'w'){
+                w = true;
+            } else if(e.key == 'a'){
+                a = true;
+            } else if(e.key == 's'){
+                s = true;
+            } else if(e.key == 'd'){
+                d = true;
+            } else if(e.keyCode == '39') {  // 오른쪽
+                ra = true;
+            } else if(e.keyCode =='37'){
+                la = true;
+            }
+
+            if(e.code == 'Space'){
+                space = true;
+            }
+            
+        });
+        window.addEventListener('keyup',(e)=>{
+            if(e.key == 'w'){
+                w = false;
+            } else if(e.key == 'a'){
+                a = false;
+            } else if(e.key == 's'){
+                s = false;
+            } else if(e.key == 'd'){
+                d = false;
+            } else if(e.keyCode == '39') {  // 오른쪽
+                ra = false;
+            } else if(e.keyCode =='37'){
+                la = false;
+            }
+        });
+
+        setInterval(()=>{
+            if(a == true){
+                const raidan = (Math.PI /180 )* -vx;
+                y = y+ (10* Math.sin(raidan));
+                x = x + (10 * Math.cos(raidan));
+            }
+            if(w == true){
+                const raidan = (Math.PI /180 )* -(vx-90);
+                y = y + (10* Math.sin(raidan));
+                x = x + (10 * Math.cos(raidan));
+            }
+            if(s == true){
+                const raidan = (Math.PI /180 )* -(vx+90);
+                y = y + (10* Math.sin(raidan));
+                x = x + (10 * Math.cos(raidan));
+            }
+            if(d == true){
+                const raidan = (Math.PI /180 )* -vx;
+                y = y + (-10* Math.sin(raidan));
+                x = x + (-10 * Math.cos(raidan));
+            }
+            
+            if(ra == true){
+                vx -=0.5;
+            }
+            if(la == true){
+                vx +=0.5;
+            }
+
+            if(z <= -500){
+                space = false;
+            }
+            if(space == true && z > -500){
+                z -= 10;
+            }
+            if(space == false && z < 0){
+                z += 10;
+            }
+            observer.style.transform = `rotateX(80deg) translateX(${x}px) translateY(${y}px)`;
+            ground.style.transform = `rotateZ(${vx}deg)`;
+            ground.style.transformOrigin = `${960-x}px ${4000-y}px`;
+        },10);
+    </script>
+
+</body>
+</html>

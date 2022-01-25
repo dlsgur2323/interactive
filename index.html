@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes rotation {
+            0% {
+                transform : rotate(0deg);
+            }
+            100%{
+                transform : rotate(360deg);
+            }
+        }
+        @keyframes fontSizing {
+            0% {
+                font-size: 5rem;
+            }
+            50% {
+                font-size: 30rem;
+                
+            }
+            100%{
+                font-size: 5rem;
+            }
+        }
+        ::selection{
+            background: none;
+        }
+        html {
+            overflow: hidden;
+        }
+        article{
+            width: 400px; height: 400px; margin: 100px auto;
+            animation-name: rotation;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+            border-radius: 100%;
+            position: absolute;
+            cursor: pointer;
+        }
+        p{
+            animation-name: fontSizing;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-delay: 0s;
+            text-align: center;
+            line-height: 400px;
+            font-size: 10rem;
+            margin : 0;
+        }
+    </style>
+</head>
+<body>
+    <article style="left : 40vw;top : 20vh;">
+        <p>'</p>
+    </article>
+
+    <script>
+        function addArticle(){
+            const article = document.createElement('article');
+            const p = document.createElement('p');
+            p.innerText="'";
+            article.append(p);
+            let left = Math.random() * 1500;
+            let top = Math.random() * 400;
+            article.style.left = left + 'px';
+            article.style.top = top + 'px';
+            article.addEventListener('click',addArticle);
+            document.body.append(article);
+        }
+        document.querySelector('article').addEventListener('click',addArticle);
+    </script>
+</body>
+</html>
